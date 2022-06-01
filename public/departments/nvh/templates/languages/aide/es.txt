@@ -1,0 +1,230 @@
+
+aide_retour = "Back to main menu"
+
+index_contenu = """
+	<b>HELP SUMMARY</b>
+	<br><br>
+	Find below a short description of all the features of the program.
+	<br>
+	
+"""
+
+planning_titre = "Planning view"
+
+planning_contenu = """
+	<h3> The different display modes </h3>
+	In the "Display" menu you will find all the displays available:
+	<br>
+	<ul>
+		<li> <b> Planning by Resource</b>: The program arranges the resources in the left column and the reservations are arranged on the lines of each resource.</ li>
+		<li> <b> Planning by Project </b>: The program arranges the projects (now clients) in the left column and the reservations are arranged on the lines of each project. </ li>
+		<li> <b> Show empty lines </b>: If you disable this option, the program will only show lines containing at least one reservation in the selected period. </ Li>
+		<li> <b> Summary View </b> - Displays a summary table of all tasks below the schedule. </ Li>
+	</ul>
+
+	<h3> Select dates to display </h3>
+	The schedule is displayed based on a start date and an end date.
+	<br> You choose the period of time to display in the schedule by clicking on the dates on the top left.
+	<br> The module then allows you to choose the start date, end date, or preselect a date with shortcuts (today, last week, etc.). Just click on the validation button to instantly change the displayed time period.
+        <br><br>
+
+
+	<h3> Filters </h3>
+	The different filters present allow you to customize the display to see only the tasks that interest you.
+	<br> You can filter by <b> Resource </b>, <b> Project </b>, <b> Task status </b>, <b> Project status </b>, by <b> Technician </b> or <b> Equipment</b>.
+	<br> For each of these filters you can check several choices. Once the filter is applied, it turns red to quickly see that a filter is active. Only the tasks corresponding to these choices will be displayed.
+	<br> You can at any time remove a filter by clicking the filter again, then the <i> Disable </i> button.
+        <br><br>
+        
+	<h3> Export </h3>
+    You can export the planning information in the format CSV (open in excel)
+		<br><br>
+
+	<h3> View </h3>
+	<b> Detail View / Compact View </b>: By default the program displays a detail view of tasks. Selecting this option you can change to a Compact view were the program shows only the ID of the project. 
+	<br><br>
+        <b> Project Color / Task Status Color View </b>: By default the program displays the task in the color of its project. Selecting this option you can change the color of the task to the one given by its project billing status. 
+	<br><br>
+
+
+	<h3> The schedule and task management form </h3>
+	<br>
+	When hovering over a task, you can see all the information in the task. Just click on the cell of a task to modify it.
+	<br>
+	The list of tasks, projects and people displayed is directly related to the rights of the connected person.
+	<br>
+	When you click on an empty day, or below existing tasks, you go directly to the task creation form, and the Resource is pre-selected, as well as the date. You can also add a task directly from the colored "Add a task" button.
+	<br>
+	In the <b> task form only a few fields are required </b>: the project, the assigned resource, the start date, and the duration. All the other fields are there to allow you to go further in the management of your projects and offer you more possibilities.
+	<br>
+        You can add a Project directly from the colored "Add a Project" button.
+	<br><br>
+	The <b> duration of a task </b> can be morning, afternoon or all day.
+	<br><br>
+	The <b> end date </b> allows you to schedule a task that takes place in larger periodes of time. In the non working days you can shift the task to the following day, add it or not. 
+	<br><br>
+	The <b> Temporary Reservation</b> displays a pictogram in the task that allows the user to know if the reservation is definitive or not
+	<br><br>
+	<B> Technicians and Equipment</b> allows you to manage the booking of equipment and workers.
+	<br><br>
+	You can easily <b>move tasks</b> from planning view by dragging them into another day or resource. You can also <b>change the tasks duration</b> (morning, afternoon, all day) or <b>delete</b> them by dragging them into the icons you can find above the planning, <b>copy</b> one-day tasks by dragging them into their own cell, or <b>add one day</b> to large tasks by dragging its last task to its own cell.
+	<br><br>
+	Several users can easily access and modify the schedule or the same task at the same time: the information saved is that of the last person who validated the form.
+
+"""
+
+ressources_titre = "Equipment management"
+
+ressources_contenu = """
+	The Equipment is an additional task-related data. <br>
+	<br>
+	A selection drop-down menu appears in the task management form, containing the list of the Equipment. You can manage this list in the interface of <a href="ressources.php"> Equipment management </a>, via the "Equipment" menu.
+	<br>
+	This field is optional in the task form, so you do not have to choose a resource for each task even if the module is enabled.
+	<br><br>
+        All the Equipment is exclusive. You are able to create another task with the same resource at the same time but the program will tell you that there is a conflict.
+	<br><br>
+	Once a resource is assigned, you can also delete it from a task afterwards by editing the task again.
+"""
+
+users_titre = "Users management"
+
+users_contenu = """
+        <br>
+	Users represent the people who can connect to the tool to view the schedule and also the technicians that appear in the task form.
+	<br>
+	You can create as many users as you want, each will have specific rights.
+	<br>
+        <br>
+
+	<h3> List of users </h3>
+	The list of users includes all the people registered in the tool. This interface allows you to create / modify / delete a user, and view basic information of each user account.
+	<br>
+	You can sort this list by clicking on the names of the columns, and filter the list by team or by search engine.
+	<br>
+	<b> Important </b>: Deleting a user will delete all the tasks for that user.
+        <br><br>
+
+	<h3> The main information of a user </h3>
+	The identifier is a string of characters that is unique for each user. This identifier is the one that is displayed in the schedule. The goal is to define an identifier that easily represents the person concerned (initials, employee number, etc.). This identifier can not be changed later.
+	<br>
+	The field "name" is the only other required field for creating a user, this name will be displayed in the full summary under the schedule.
+	<br>
+	The "login" and "password" are needed if you want to give access to the schedule to the user concerned. Each login is unique.
+        <br><br>
+
+	<h3> Definition of rights </h3>
+	<b> User Management </b>: gives the right to all possible actions on user accounts. There is no intermediate right to partially modify the accounts. 
+	<br><br>
+	<b> Project Management </b>: gives the right to all the possible actions on the project file. It does not give any rights over the tasks associated with these projects. There is no intermediate right to partially modify projects.
+	<br><br>
+	<b> Project Group Management </b>: Manage project groups to which projects can be attached. 
+	<br><br>
+	<b> Schedule Modification </b>: This right determines what the user can modify in the schedule, it is not necessarily the set of tasks he sees (see right below). <I> read only </i> access does not allow any modification. The option <i> Only for projects owned by it </i> allows it to modify only these projects if it has been defined as owner in a project's form. The <i> Tasks to which it is assigned or its own projects </i> option allows it to modify the tasks where it owns the project and the tasks assigned to it on other projects. Finally the option <i> for all projects </i> allows him to modify all the tasks of the projects he can see.
+	<br><br>
+	<b> Planning view </b>: the <i> all projects </i> option allows the user to see all the projects present in the tool (unless he has voluntarily applied a schedule filter). The <i> Only Team Projects </i> option allows you to view only projects that are covered by at least one person on the same team as this user. You can not define a specific list of projects for this right, just add at least one task on a new project so that everyone on the same team can access this project. The <i> Only projects owned or assigned </i> option allows you to see all the tasks of the projects owned by the user, as well as the tasks on which it is assigned. The <i> Only Tasks assigned to it </i> option allows you to restrict the display to its own tasks only.
+	<br><br>
+	<b> Technician Management </b>: gives the right to all the possible actions on the list of technicians.
+	<br><br>
+	<b> Equipment Management </b> entitles you to all possible actions on the list of available equipment.
+	<br><br>
+	<b> Parameter Management </b>: gives access to the modification of all SOPlanning parameters.
+	<br><br>
+
+       <h3> Users as technicians</h3>
+
+        Users are additional data that can be related to tasks .
+	<br>
+	A selection drop-down menu appears in the task management form, containing the list of all the technicians (users). 
+	This field is optional in the task form, so you do not have to choose a location for each task even if the module is enabled.
+	<br><br>
+	All the technicians are exclusive. You are able to create another task for that same technician at the same time but the program will tell you there is a conflict. 
+	Once assigned, you can also delete it from a task afterwards by editing the task again.
+	
+	
+"""
+
+equipes_titre = "Teams management"
+
+equipes_contenu = """
+       
+	Teams can group together projects visually and can impact user rights in some cases.
+	<br>
+	These teams help visibility in the management of users and in the planning.
+	<br>
+	The team management module makes it possible to create / modify / delete teams at will.
+"""
+
+projets_titre = "Projects management"
+
+projets_contenu = """
+	A task is always linked to a project and a resource. Before creating a task, make sure the corresponding project is already created.
+	<br>
+	You can create, edit and delete as many projects as you want at will.
+        <br><br>
+
+	<h3> List of projects </h3>
+	You can filter the list of projects by date, by project group, do a text search on the project title and sort the list by clicking on the names of the columns.
+	<br>
+	In the list, the projects are grouped according to the groups of projects, the projects without group are at the beginning.
+	<br>
+	<b> Important </b>: Deleting a project will delete all tasks from this project. You can delete all tasks from a project without deleting the project by clicking into the rubber icon.
+        <br><br>
+
+	<h3> Project information </h3>
+	The <i> project name </i> is the only other mandatory information for creating a project.
+	<br>
+	You can optionally set a <i> customer </i>, so you can easily group them visually, in the project listing and in the schedule.
+	<br>
+	The <i> status </i> also allows you to sort projects.
+	<br>
+	The <i> billing status </i> can be used in planning view to change colors from tasks.
+	<br>
+	<i> Sample reception </i> and <i> deadline </i> is used in planning view and in task creation to advice you when you try to plan before sample reception or after deadline.
+	<br>
+	The <i> standard </i>, the <i> link </i>, and the <i> comments </i> are simple information allowing you to add details to your projects without consequences on the schedule.
+	<br>
+	The <i> color </i> of the project is the background color of the cell for tasks. Choose representative colors for each project for better readability.
+"""
+
+groupes_titre = "Customers"
+
+groupes_contenu = """
+	Groups together projects visually they have no impact on user rights.
+	<br>
+	These groups help visibility in the management of projects and in the planning.
+	<br>
+	The customer management module makes it possible to create / modify / delete groups at will.
+"""
+
+
+res_titre = "Resources management"
+
+res_contenu = """
+
+        In order to perform a reservation you need to check the resources availables.
+	<br><br>
+        <h3> List of Resources </h3>
+	The list of Resources includes all the elements registered in the tool. This interface allows you to create / modify / delete a resource.
+	<br>
+	You can sort this list by clicking on the names of the columns, and filter the list by team or by search engine.
+	<br>
+	<b> Important </b>: Deleting a resource will delete all the tasks assigned to it.
+        <br><br>
+
+	<h3> The main information of a Resource </h3>
+	The identifier is a string of characters that is unique for each resource. This identifier is the one that is displayed in the schedule. The goal is to define an identifier that easily represents the resource concerned. This identifier can not be changed later.
+	<br>
+	The field "name" is the only other required field for creating a resource, this name will be displayed in the full summary under the schedule.
+	<br>
+	The "Team" and "Color" are needed if you want a better organization of the tool. The view of the planning depends directly of these fields.
+        <br><br>
+	
+"""
+
+samples_titre = "Samples management"
+
+samples_contenu = """
+        Test, falta definir correctamente las intenciones del apartado
+	<br><br>
+"""
