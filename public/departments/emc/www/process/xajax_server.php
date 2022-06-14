@@ -46,7 +46,7 @@ function ajoutProjet($origine=null) {
 	$sql = "SELECT pu.*, pug.nom as team_nom
 		FROM planning_user pu
 		LEFT JOIN planning_user_groupe pug ON pu.user_groupe_id = pug.user_groupe_id
-		WHERE pu.user_id <> 'publicspl' AND pug.nom = 'TM IND' OR pug.nom = 'TM AUTO' ORDER BY nom ASC";
+		WHERE pu.user_id <> 'publicspl' AND pug.nom = 'Test Manager IND' OR pug.nom = 'Test Manager AUTO' ORDER BY nom ASC";
 	$usersOwner->db_loadSQL($sql);
 	$smarty->assign('usersOwner', $usersOwner->getSmartyData());
 	
