@@ -14,3 +14,4 @@ yarn-error.log
 /.vscode
 database.inc
 public/departments/*/smarty/templates_c/*tpl.php
+public/departments/*/smarty/templates_c/*txt.php

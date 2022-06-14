@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<div class="form-group row col-md-12">
-		<label class="col-md-4 col-form-label">Creator :</label>
+		<label class="col-md-4 col-form-label">Test Manager :</label>
 		<div class="col-md-6">
 				<select name="createur_id" id="createur_id" class="form-control{if $smarty.session.isMobileOrTablet==0} select2{/if}">
 					<option value="" {if $createur.user_id eq ""}selected="selected"{/if}></option>

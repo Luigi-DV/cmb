@@ -1,20 +1,20 @@
-<?php /* Smarty version 3.1.32, created on 2022-05-31 18:17:11
+<?php /* Smarty version 3.1.32, created on 2022-06-14 02:37:12
          compiled from '/Applications/MAMP/htdocs/applusProjects/cmb/public/departments/clima/templates/languages/en.txt' */ ?>
 <?php
-/* Smarty version 3.1.32, created on 2022-05-31 18:17:11
+/* Smarty version 3.1.32, created on 2022-06-14 02:37:12
   from '/Applications/MAMP/htdocs/applusProjects/cmb/public/departments/clima/templates/languages/en.txt' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32',
-  'unifunc' => 'content_62963f87e00d79_74740590',
+  'unifunc' => 'content_62a7d8383c8eb3_02529790',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f4a357cf74e2ce1fcaae55dca39ca483867f84c7' => 
     array (
       0 => '/Applications/MAMP/htdocs/applusProjects/cmb/public/departments/clima/templates/languages/en.txt',
-      1 => 1653910583,
+      1 => 1655162593,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62963f87e00d79_74740590 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62a7d8383c8eb3_02529790 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, array (
   'sections' => 
   array (
@@ -83,6 +83,8 @@ $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, array (
     'menuFeries' => 'Public holidays',
     'menuIntensive' => 'Intensive days',
     'menuGroupesUsers' => 'Teams',
+    'menuGroupesRessources' => 'Resource teams',
+    'menuGroupesEqui' => 'Equipment teams',
     'menuPlanningJour' => 'Day view',
     'menuPlanningSimple' => 'Task view',
     'menuPlanningCompletProjet' => 'Project view',

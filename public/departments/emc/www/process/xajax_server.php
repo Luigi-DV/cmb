@@ -1239,6 +1239,16 @@ function ajoutPeriode($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
         WHERE pg.user_groupe_id='13'";
 		$listeLieux_AUTO->db_loadSQL($sql_AUTO);
 		$smarty->assign('listeLieuxAUTO', $listeLieux_AUTO->getSmartyData());
+
+		//LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 		
 	}
 	
@@ -1458,6 +1468,16 @@ function ajoutMultiplePeriode($data = '') {
         WHERE pg.user_groupe_id='13'";
 		$listeLieux_AUTO->db_loadSQL($sql_AUTO);
 		$smarty->assign('listeLieuxAUTO', $listeLieux_AUTO->getSmartyData());
+
+		//LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 		
 	}
 	
@@ -1841,6 +1861,16 @@ function modifPeriode($periode_id) {
         WHERE pg.user_groupe_id='13'";
 		$listeLieux_AUTO->db_loadSQL($sql_AUTO);
 		$smarty->assign('listeLieuxAUTO', $listeLieux_AUTO->getSmartyData());
+
+		//LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 		
 	}
 
@@ -5914,7 +5944,7 @@ function restaureAudit($audit_id=null) {
 function hasSample($project_id){
 	$objResponse = new xajaxResponse('ISO-8859-1');
 	$smarty = new MySmarty();
-	$project = new Project();
+	$project = new Projet();
 		$sql = "SELECT ppr.*
 				FROM planning_projet AS ppr
 				WHERE  projet_id = '".$project_id."'
@@ -5929,6 +5959,38 @@ function hasSample($project_id){
 	
 }
 
+//Get the Test Manager (The Project Creator field of DB)
+function getProjectCreator($project_id)
+{
+	$objResponse = new xajaxResponse('ISO-8859-1');
+	$projet = new Projet();
+	$projet->db_load(array('projet_id', '=', $project_id));
+	//Clearing the previous value
+	$objResponse->addClear('lieu_id_TM', 'value');
+	if($projet->createur_id){
+		$objResponse->addPrepend('lieu_id_TM', 'value', $projet->createur_id);
+	}
+	else{
+        //Alert
+        $objResponse->addPrepend('lieu_id_TM', 'value', "");
+		$objResponse->addAlert(addslashes('The selected Project does not have a Test Manager associated. You must select one.'));
+	}
+
+	return $objResponse;
+}
+
+function changeProjectTM($projectID, $testManagerID)
+{
+	$objResponse = new xajaxResponse('ISO-8859-1');
+	$newTestManager = new GCollection('Lieu');
+    if(isset($testManagerID) && $testManagerID != "") {
+		$sql = "UPDATE planning_projet SET createur_id='".$testManagerID."' WHERE projet_id='".$projectID."'";
+		$newTestManager->db_loadSQL($sql);
+	}
+	else { $objResponse->addAlert(addslashes('You must select a Test Manager')); }
+
+	return $objResponse;
+}
 
 
 $xajax->processRequests();

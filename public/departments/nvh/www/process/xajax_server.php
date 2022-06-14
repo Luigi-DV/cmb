@@ -1178,6 +1178,24 @@ function ajoutPeriode($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 		WHERE pug.user_groupe_id!='8'";
 		$listeLieux->db_loadSQL($sql);
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU ALL
+        $listeLieux = new GCollection('Lieu');
+        $sql = "SELECT pu.*
+		FROM planning_lieu pu
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
+        $listeLieux->db_loadSQL($sql);
+        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+        //LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 	}
 
 	// liste de toutes les ressources
@@ -1366,6 +1384,24 @@ function ajoutHoliday($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 		$listeLieux = new GCollection('Lieu');
 		$listeLieux->db_load(array(), array('nom' => 'ASC'));
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU ALL
+        $listeLieux = new GCollection('Lieu');
+        $sql = "SELECT pu.*
+		FROM planning_lieu pu
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
+        $listeLieux->db_loadSQL($sql);
+        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+        //LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 	}
 
 	// liste de toutes les ressources
@@ -1573,6 +1609,24 @@ function modifPeriode($periode_id) {
 		$listeLieux = new GCollection('Lieu');
 		$listeLieux->db_load(array(), array('nom' => 'ASC'));
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU ALL
+        $listeLieux = new GCollection('Lieu');
+        $sql = "SELECT pu.*
+		FROM planning_lieu pu
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
+        $listeLieux->db_loadSQL($sql);
+        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+        //LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 	}
 
 	// liste de toutes les ressources
@@ -1775,6 +1829,24 @@ function modifHoliday($periode_id) {
 		$listeLieux = new GCollection('Lieu');
 		$listeLieux->db_load(array(), array('nom' => 'ASC'));
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU ALL
+        $listeLieux = new GCollection('Lieu');
+        $sql = "SELECT pu.*
+		FROM planning_lieu pu
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
+        $listeLieux->db_loadSQL($sql);
+        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+        //LIEU TEST MANAGERS
+        $listeLieux_TM = new GCollection('Lieu');
+        $sql_TM = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Test Manager%'";
+        $listeLieux_TM->db_loadSQL($sql_TM);
+        $smarty->assign('listeLieuxTM', $listeLieux_TM->getSmartyData());
 	}
 
 	// liste de toutes les ressources
@@ -5502,6 +5574,39 @@ function downPlanning($user_id = null){
 
 	$_SESSION['message'] = 'changeOK';
 	$objResponse->addRedirect('ressources_list.php');
+	return $objResponse;
+}
+
+//Get the Test Manager (The Project Creator field of DB)
+function getProjectCreator($project_id)
+{
+	$objResponse = new xajaxResponse('ISO-8859-1');
+	$projet = new Projet();
+	$projet->db_load(array('projet_id', '=', $project_id));
+	//Clearing the previous value
+	$objResponse->addClear('lieu_id_TM', 'value');
+	if($projet->createur_id){
+		$objResponse->addPrepend('lieu_id_TM', 'value', $projet->createur_id);
+	}
+	else{
+        //Alert
+        $objResponse->addPrepend('lieu_id_TM', 'value', "");
+		$objResponse->addAlert(addslashes('The selected Project does not have a Test Manager associated. You must select one.'));
+	}
+
+	return $objResponse;
+}
+
+function changeProjectTM($projectID, $testManagerID)
+{
+	$objResponse = new xajaxResponse('ISO-8859-1');
+	$newTestManager = new GCollection('Lieu');
+    if(isset($testManagerID) && $testManagerID != "") {
+		$sql = "UPDATE planning_projet SET createur_id='".$testManagerID."' WHERE projet_id='".$projectID."'";
+		$newTestManager->db_loadSQL($sql);
+	}
+	else { $objResponse->addAlert(addslashes('You must select a Test Manager')); }
+
 	return $objResponse;
 }
 

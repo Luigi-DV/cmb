@@ -83,4 +83,7 @@ $xajax->registerFunction('formReceived');
 $xajax->registerFunction('acceptProjet');
 $xajax->registerFunction('rejectProjet');
 $xajax->registerFunction('formRejected');
+//v0
+$xajax->registerFunction('getProjectCreator');
+$xajax->registerFunction('changeProjectTM');
 ?>

@@ -80,8 +80,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'logout') {
 	{
 		logAction('D');
 	}
-	//Cross Application Laravel - SOPlanner
-	setcookie("emcCaAuth", null, time()-24*3600, '/');
+	
 	unset($_SESSION['user_id']);
 	session_regenerate_id();
 	@session_destroy();
@@ -139,7 +138,7 @@ if(isset($_GET['direct_periode_id']) && $_GET['direct_periode_id'] > 0) {
 //login 
 if(!isset($_POST['login']) || !isset($_POST['password']) || $_POST['login'] == '' || $_POST['password'] == '') {
 	$_SESSION['message'] = 'erreur_bad_login';
-	header('Location: ../../../../emc/login?message=error_bad_login');
+	header('Location: ../index.php');
 	exit;
 }
 
@@ -147,7 +146,7 @@ if(!isset($_POST['login']) || !isset($_POST['password']) || $_POST['login'] == '
 if($ldapLogin) {
     if(!isset($_POST['password']) || !retrieve_ldap_password($_POST['login'], $_POST['password'])) {
         $_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../emc/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 }
@@ -157,38 +156,36 @@ $user = New User();
 if($ADLogin && ($_POST['login'] != 'admin')) {
 	if(!active_directory_login($_POST['login'], $_POST['password'])){
 		$_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../emc/login?message=error_bad_login');
+		header('Location: ../index.php');
 		exit;
 	}
     if(!$user->db_load(array('login', '=', $_POST['login']))) {
         $_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../emc/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 } elseif($ldapLogin && ($_POST['login'] != 'admin')) {
     if(!$user->db_load(array('login', '=', $_POST['login']))) {
         $_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../../emc/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 } else {
 	$pwd = sha1("¤" . $_POST['password'] . "¤");
 	if(!$user->db_load(array('login', '=', $_POST['login'], 'password', '=', $pwd))) {
         $_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../emc/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 }
 
 if($user->login_actif == 'non'){
 	$_SESSION['message'] = 'erreur_bad_login';
-	header('Location: ../../../../emc/login?message=error_bad_login');
+	header('Location: ../index.php');
 	exit;	
 }
 
 $_SESSION['user_id'] = $user->user_id;
-//Cross Application Laravel - SOPlanner
-setcookie("emcCaAuth", $user->user_id, time() + 24*3600, '/');
 $user->date_dernier_login = date('Y-m-d H:i:s');
 $user->db_save();
 

@@ -15,7 +15,7 @@
 		{*Fila en la cual se escoje el proyecto asociado a la rerserva, se selecciona a partir de los elementos de la base de datos*}
 			<label class="col-md-2 col-form-label">{#winPeriode_projet#} :</label>
 			<div class="col-md-4">
-				<select name="projet_id" id="projet_id" class="form-control {if !$smarty.session.isMobileOrTablet}select2{/if}" tabindex="1" style="width:100%" onChange="xajax_checkTaskDate(this.value, $('#date_debut').val(), $('#dateFinRepetitionJour').val());">
+				<select name="projet_id" id="projet_id" class="form-control {if !$smarty.session.isMobileOrTablet}select2{/if}" tabindex="1" style="width:100%" onChange="xajax_checkTaskDate(this.value, $('#date_debut').val(), $('#dateFinRepetitionJour').val()); xajax_getProjectCreator(this.value);">
 					<option value="">- - - - - - - - - - -</option>
 					{assign var="groupeCourant" value="-1"}
 					{foreach from=$listeProjets item=projetTmp}
@@ -415,21 +415,21 @@
 					<i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
 				</a>
 			</div>
-				<div class="col-md-3">
-					<select multiple="multiple" name="lieu" id="lieu" class="form-control {if $smarty.session.isMobileOrTablet!=1}select2{/if}" tabindex="22" style="width:100%" onChange="xajax_checkHoliday(getSelectValue('lieu'), $('#date_debut').val(), $('#matin').is(':checked'), $('#apresmidi').is(':checked'),$('#nuit').is(':checked'), $('#dateFinRepetitionJour').val(), '{$periode.periode_id}');">
-						{assign var=groupeTemp value=""}
-						{foreach from=$listeLieux item=lieuTmp}
-							<option value="{$lieuTmp.lieu_id}" {if in_array($lieuTmp.lieu_id, $periode.lieu)} selected="selected" {/if}>{$lieuTmp.nom}</option>
-							{assign var=groupeTemp value=$lieuTmp.lieu_id}
-						{/foreach}
-					</select>
-					<span id="divStatutCheckHoliday1"></span>
-					<span id="divStatutCheckHoliday2"></span>
-					<span id="divStatutCheckHoliday3"></span>
-					<span id="divStatutCheckHoliday4"></span>
-					<span id="divStatutCheckHoliday5"></span>
-				</div>
-		{/if}
+			<div class="col-md-3">
+				<select multiple="multiple" name="lieu" id="lieu" class="form-control {if $smarty.session.isMobileOrTablet!=1}select2{/if}" tabindex="22" style="width:100%" onChange="xajax_checkHoliday(getSelectValue('lieu'), $('#date_debut').val(), $('#matin').is(':checked'), $('#apresmidi').is(':checked'),$('#nuit').is(':checked'), $('#dateFinRepetitionJour').val(), '{$periode.periode_id}');">
+					{assign var=groupeTemp value=""}
+					{foreach from=$listeLieux item=lieuTmp}
+						<option value="{$lieuTmp.lieu_id}" {if in_array($lieuTmp.lieu_id, $periode.lieu)} selected="selected" {/if}>{$lieuTmp.nom}</option>
+						{assign var=groupeTemp value=$lieuTmp.lieu_id}
+					{/foreach}
+				</select>
+				<span id="divStatutCheckHoliday1"></span>
+				<span id="divStatutCheckHoliday2"></span>
+				<span id="divStatutCheckHoliday3"></span>
+				<span id="divStatutCheckHoliday4"></span>
+				<span id="divStatutCheckHoliday5"></span>
+			</div>
+		{/if}		
 		{if $smarty.const.CONFIG_SOPLANNING_OPTION_RESSOURCES == 1 }
 		    <div class="col-md-2 col-form-label">{#winPeriode_ressource#} :
 				<a href="{$BASE}/www/process/planning_equi.php?dimensionCase=reduit&afficherTableauRecap=0" class="dropdown-item" target="_blank">
@@ -470,11 +470,31 @@
 				</div>
 		
 		{/if}
+		</div>
+		<div class="form-group row col-md-12">
 		{if $smarty.const.CONFIG_SOPLANNING_OPTION_LIEUX == 0 }
 		<input type="hidden" name="lieu" id="lieu" value="">
 		{/if}
 		{if $smarty.const.CONFIG_SOPLANNING_OPTION_RESSOURCES == 0 }
 		<input type="hidden" name="ressource" id="ressource" value="">
+		{/if}
+		</div>
+		<div class="form-group row col-md-12">
+		{if $smarty.const.CONFIG_SOPLANNING_OPTION_LIEUX == 1 }
+			<div class="col-md-2 col-form-label">Test Manager:</div>
+			<div class="col-md-3">
+				<select name="lieu_TM" id="lieu_id_TM" class="form-control" tabindex="22" style="width:100%"
+				onChange="xajax_checkHoliday($('#lieu_id option:selected').val(), $('#date_debut').val(), $('#matin').is(':checked'), $('#apresmidi').is(':checked'),$('#nuit').is(':checked'), $('#dateFinRepetitionJour').val(), '{$periode.periode_id}'); ">
+					<option value="">Without TM</option>
+					{foreach from=$listeLieuxTM item=lieuTmp_TM}
+						<option value="{$lieuTmp_TM.lieu_id}"
+							{if isset($projectCreator)} selected="selected" {/if}
+							{if $lieuTmp_TM.lieu_id === $projet.createur_id} selected="selected" {/if}>
+							{$lieuTmp_TM.nom}
+						</option>
+					{/foreach}
+				</select>
+			</div>
 		{/if}
 		</div>
 		

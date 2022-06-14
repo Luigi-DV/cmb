@@ -39,7 +39,13 @@
 						{foreach name=groupes item=groupe from=$groupes}
 							<tr>
 								<td class="w40">
-									{if $groupe.nom neq "Users" && $groupe.nom neq "Project Manager"}
+								 {if
+								 	$groupe.nom neq "Project Manager" &&
+                                    $groupe.nom neq "Unsubscribed" &&
+                                    $groupe.nom neq "Technician AUTO" &&
+                                    $groupe.nom neq "Technician IND" &&
+                                    $groupe.nom neq "Test Manager AUTO" &&
+                                    $groupe.nom neq "Test Manager IND"}
 										<a href="javascript:xajax_modifUserGroupe({$groupe.user_groupe_id},'user');undefined;"><i class="fa fa-pencil fa-lg fa-fw" aria-hidden="true"></i></a>
 										<a href="javascript:if(confirm('{#confirm#|escape:"javascript"}')){literal}{{/literal}javascript:xajax_supprimerUserGroupe({$groupe.user_groupe_id});{literal}}{/literal};undefined;"><i class="fa fa-trash-o fa-lg fa-fw" aria-hidden="true"></i></a>
 									{/if}
