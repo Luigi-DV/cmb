@@ -15,3 +15,4 @@ yarn-error.log
 database.inc
 public/departments/*/smarty/templates_c/*tpl.php
 public/departments/*/smarty/templates_c/*txt.php
+public/departments/*/debug.txt

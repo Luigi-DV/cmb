@@ -608,6 +608,7 @@
 					users_ids=getSelectValue('user_id');
 					lieus_ids=getSelectValue('lieu');
 					ressources_ids=getSelectValue('ressource');
+					xajax_changeProjectTM($('#projet_id').val(), $('#lieu_id_TM').val());
 					xajax_submitFormPeriode('{$periode.periode_id}', $('#projet_id').val(), users_ids, $('#date_debut').val(), $('#conserver_duree').is(':checked'), $('#date_fin').val(), $('#nb_jours').val(), $('#duree').val(), $('#heure_debut').val(), $('#heure_fin').val(), 
 											$('#matin').is(':checked'), $('#apresmidi').is(':checked'), $('#nuit').is(':checked'), 'jour', $('#dateFinRepetitionJour').val(),$('#dateFinRepetitionSemaine').val(),$('#dateFinRepetitionMois').val(), $('#nbRepetitionJour option:selected').val(),
 											$('#nbRepetitionSemaine option:selected').val(),$('#nbRepetitionMois option:selected').val(),getRadioValue('jourSemaine'),getRadioValue('exceptionRepetition'),$('#appliquerATous').is(':checked'), $('#statut_tache').val(),lieus_ids, 
