@@ -22,8 +22,8 @@
         </div>
 
         <div class="flex w-full justify-end items-center">
-            <a href="{{url('departments/ele')}}" class="group w-full md:w-1/2 group py-24 rounded-md border-2 border-orange-applus text-orange-applus font-black text-5xl
-               text-center hover:bg-orange-applus hover:text-white bg-gray-200 pointer-events-none">
+            <a href="{{url('departments/ele')}}" class="group w-full md:w-1/2 py-24 rounded-md border-2
+            border-orange-applus text-orange-applus font-black text-5xl text-center hover:bg-orange-applus hover:text-white">
                 {{__('ELE')}}
                 <div class="group-hover:scale-150 text-xs font-light mt-5 flex w-full justify-center ease-in-out duration-300">
                     {{__('Electronics')}}
