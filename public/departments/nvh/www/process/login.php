@@ -141,7 +141,7 @@ if(isset($_GET['direct_periode_id']) && $_GET['direct_periode_id'] > 0) {
 //login 
 if(!isset($_POST['login']) || !isset($_POST['password']) || $_POST['login'] == '' || $_POST['password'] == '') {
 	$_SESSION['message'] = 'erreur_bad_login';
-	header('Location: ../../../../nvh/login?message=error_bad_login');
+	header('Location: ../index.php');
 	exit;
 }
 
@@ -149,7 +149,7 @@ if(!isset($_POST['login']) || !isset($_POST['password']) || $_POST['login'] == '
 if($ldapLogin) {
     if(!isset($_POST['password']) || !retrieve_ldap_password($_POST['login'], $_POST['password'])) {
         $_SESSION['message'] = 'erreur_bad_login';
-        header('Location: ../../../../nvh/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 }
@@ -159,32 +159,32 @@ $user = New User();
 if($ADLogin && ($_POST['login'] != 'admin')) {
 	if(!active_directory_login($_POST['login'], $_POST['password'])){
 		$_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../nvh/login?message=error_bad_login');
+		header('Location: ../index.php');
 		exit;
 	}
     if(!$user->db_load(array('login', '=', $_POST['login']))) {
         $_SESSION['message'] = 'erreur_bad_login';
-        header('Location: ../../../../nvh/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 } elseif($ldapLogin && ($_POST['login'] != 'admin')) {
     if(!$user->db_load(array('login', '=', $_POST['login']))) {
         $_SESSION['message'] = 'erreur_bad_login';
-        header('Location: ../../../../nvh/login?message=error_bad_login');
+        header('Location: ../index.php');
         exit;
     }
 } else {
 	$pwd = sha1("¤" . $_POST['password'] . "¤");
 	if(!$user->db_load(array('login', '=', $_POST['login'], 'password', '=', $pwd))) {
         $_SESSION['message'] = 'erreur_bad_login';
-		header('Location: ../../../../nvh/login?message=error_bad_login');
+		header('Location: ../index.php');
         exit;
     }
 }
 
 if($user->login_actif == 'non'){
 	$_SESSION['message'] = 'erreur_bad_login';
-	header('Location: ../../../../nvh/login?message=error_bad_login');
+	header('Location: ../index.php');
 	exit;	
 }
 
