@@ -127,7 +127,7 @@
 								<td>{$userTmp.nom|xss_protect}</td>
 								<td class="wrap d-none d-sm-table-cell d-lg-table-cell">{$userTmp.nom_groupe|xss_protect}</td>
 								<td class="wrap d-none d-sm-table-cell d-lg-table-cell">
-									{if $userTmp.user_groupe_id == 8}
+									{if $userTmp.user_groupe_id === 0 || $userTmp.nom_groupe === "Unsubscribed"}
 										<div class="pastille-statut tooltipster" style="background-color:#FF0000;" {*title="Alta"*}></div>
 									{else}
 										<div class="pastille-statut tooltipster" style="background-color:#008000;" {*title="Baixa"*}></div>

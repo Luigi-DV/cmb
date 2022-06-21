@@ -111,6 +111,9 @@
 								{/if}
 							</th>
 							<th class="wrap d-none d-lg-table-cell">
+								Status 
+							</th>
+							<th class="wrap d-none d-lg-table-cell">
 								{#user_droits_court#}
 							</th>
 						</tr>
@@ -123,6 +126,14 @@
 								<td class="userTabColId"><span class="pastille-user" style="background-color:#{$userTmp.couleur};color:{"#"|cat:$userTmp.couleur|buttonFontColor}">{$userTmp.user_id}</span></td>
 								<td>{$userTmp.nom|xss_protect}</td>
 								<td class="wrap d-none d-sm-table-cell d-lg-table-cell">{$userTmp.nom_groupe|xss_protect}</td>
+								<td class="wrap d-none d-sm-table-cell d-lg-table-cell">
+									{if $userTmp.user_groupe_id === 100 || $userTmp.nom_groupe === "Unsubscribed"}
+										<div class="pastille-statut tooltipster" style="background-color:#FF0000;" {*title="Alta"*}></div>
+									{else}
+									{$userTmp.user_groupe_id}
+										<div class="pastille-statut tooltipster" style="background-color:#008000;" {*title="Baixa"*}></div>
+									{/if}
+								</td>
 								<td class="wrap d-none d-lg-table-cell">
 									{if $userTmp.login_actif eq "non"}
 										<span class="badge" style="color:#ff0000">{#compte_desactive#}po</font>
