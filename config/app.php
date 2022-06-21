@@ -61,6 +61,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Services URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL's services used in the main Application
+    |
+    */
+    'project_tool' => [
+        'provider' => env('PROJECT_TOOL_PROVIDER', 'Jira'),
+        'url'  => env('PROJECT_TOOL_URL', 'https://luigelo-applus.atlassian.net/browse/CMB'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

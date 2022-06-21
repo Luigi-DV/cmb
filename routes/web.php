@@ -28,7 +28,9 @@ Route::get('/help-center', function (){
     return view('app.help.index');
 })->name('help.center');
 
-
+Route::get('/redirection', function (){
+    return redirect(request()->query('value'));
+})->name('redirection.link');
 /**
  * Statistics
  *  Index
