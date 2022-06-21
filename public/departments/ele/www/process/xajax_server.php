@@ -264,7 +264,7 @@ function rejectProjet($projet_id, $iteration) {
 	$conn = mysqli_connect("localhost", "root",'', "inside_sales");
 	$sql = "UPDATE `planning_sent` SET `rejected`='true',`accepted`='false' WHERE `projet_id`='".$projet_id."'";
 	mysqli_query($conn, $sql);
-	$sql2 = "INSERT INTO `planning_received`(`projet_id`, `ELE`, `ELE_iteration`) VALUES ('".$projet_id."', 'true', '".$iteration."') ON DUPLICATE KEY UPDATE `projet_id`='".$projet_id."', `ELE`='true', `ELE_iteration`='".$iteration."'";
+	$sql2 = "INSERT INTO `planning_received`(`projet_id`, `NVH`, `NVH_iteration`) VALUES ('".$projet_id."', 'true', '".$iteration."') ON DUPLICATE KEY UPDATE `projet_id`='".$projet_id."', `NVH`='true', `NVH_iteration`='".$iteration."'";
 	mysqli_query($conn, $sql2);
 	mysqli_close($conn);
 	
@@ -1179,6 +1179,16 @@ function ajoutPeriode($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 		$listeLieux->db_loadSQL($sql);
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
+		//LIEU TECHNICIANS
+		$listeLieux_TECH = new GCollection('Lieu');
+		$sql_TECH = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Technician%'";
+        $listeLieux_TECH->db_loadSQL($sql_TECH);
+        $smarty->assign('listeLieuxTech', $listeLieux_TECH->getSmartyData());
+
 		//LIEU ALL
         $listeLieux = new GCollection('Lieu');
         $sql = "SELECT pu.*
@@ -1392,6 +1402,16 @@ function ajoutHoliday($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
         $listeLieux->db_loadSQL($sql);
         $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU TECHNICIANS
+		$listeLieux_TECH = new GCollection('Lieu');
+		$sql_TECH = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Technician%'";
+        $listeLieux_TECH->db_loadSQL($sql_TECH);
+        $smarty->assign('listeLieuxTech', $listeLieux_TECH->getSmartyData());
 
         //LIEU TEST MANAGERS
         $listeLieux_TM = new GCollection('Lieu');
@@ -1618,6 +1638,16 @@ function modifPeriode($periode_id) {
         $listeLieux->db_loadSQL($sql);
         $smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
+		//LIEU TECHNICIANS
+		$listeLieux_TECH = new GCollection('Lieu');
+		$sql_TECH = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Technician%'";
+        $listeLieux_TECH->db_loadSQL($sql_TECH);
+        $smarty->assign('listeLieuxTech', $listeLieux_TECH->getSmartyData());
+
         //LIEU TEST MANAGERS
         $listeLieux_TM = new GCollection('Lieu');
         $sql_TM = "SELECT pu.*
@@ -1837,6 +1867,16 @@ function modifHoliday($periode_id) {
 		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
         $listeLieux->db_loadSQL($sql);
         $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+		//LIEU TECHNICIANS
+		$listeLieux_TECH = new GCollection('Lieu');
+		$sql_TECH = "SELECT pu.*
+        FROM planning_lieu pu
+        LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+        LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+        WHERE pg.nom LIKE 'Technician%'";
+        $listeLieux_TECH->db_loadSQL($sql_TECH);
+        $smarty->assign('listeLieuxTech', $listeLieux_TECH->getSmartyData());
 
         //LIEU TEST MANAGERS
         $listeLieux_TM = new GCollection('Lieu');
@@ -3086,7 +3126,7 @@ function submitFormUser($user_id, $user_id_origine, $user_groupe_id, $nom, $emai
 	}
 	if($visible_planningOui == 'true') {
 		$user_form->visible_planning = 'oui';
-		$conn = mysqli_connect("localhost", "root",'', "ele");
+		$conn = mysqli_connect("localhost", "root",'', "nvh");
 		$sql = "SELECT count(*) FROM `planning_user` WHERE `visible_planning`='oui'";
 		$result = mysqli_query($conn, $sql);
 		$result = mysqli_fetch_assoc($result);
