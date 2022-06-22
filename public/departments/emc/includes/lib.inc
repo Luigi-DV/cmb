@@ -1342,9 +1342,33 @@ function createCellProject($infos)
 	// Calcul de la couleur du texte dans la case, selon la couleur de fond de la case
 	if (CONFIG_PLANNING_COULEUR_TACHE == 0 || $infos['location'] != 'planning')
 	{
-		$couleurFond = $infos['couleur'];
-	}else
-	{
+		$projetTmp = new GCollection('Projet');
+		$userTmp = new GCollection('User');
+
+		if(isset($infos['projet_id']))
+		{
+		
+			$sql = "SELECT * FROM planning_projet where projet_id='".$infos['projet_id']."'";
+			if($projetTmp->db_loadSQL($sql)) {
+
+				$test_manager_id = $projetTmp->fetch()->createur_id;
+
+				$sqlUser = "SELECT * FROM planning_user where user_id='".$test_manager_id ."'";
+			
+				if($userTmp->db_loadSQL($sqlUser)){
+					$color = $userTmp->fetch()->couleur;
+					$couleurFond = $color;
+				}else{
+					$couleurFond = $infos['couleur'];
+				}
+			}else{
+				$couleurFond = $infos['couleur'];
+			}
+		}else{
+			$couleurFond = $infos['couleur'];
+		}
+
+	}else{
 		$couleurFond = $infos['statut_couleur'];
 	}
 	if($couleurFond =='FFFFFF')
@@ -1375,9 +1399,11 @@ function createCellProject($infos)
 	}
 	
 	$periodeTmp = new GCollection('Periode');
+	
 
 	// Définition de la case selon la duree avec le code du projet avec définition d'un style personalisé
-	if($infos['location'] == 'planning'&& $dimensionCase=='large'){
+	if($infos['location'] == 'planning'&& $dimensionCase=='large'){	
+
 		$cellule.= '<div id="td_' . $ligneId . '_' . $current_date2 . '_' . $infos['duree_details'] . '" '. $styleTD. ' class="cellTask" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDropZone(event);">';
 		
 		if($infos['duree_details'] != 'duree'){
