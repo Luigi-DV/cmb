@@ -136,6 +136,7 @@ if(count($_SESSION['filtreGroupeLieu']) > 0) {
 	$res = mysqli_query($conn, $mysql); 
 	
 	$sql.= " AND planning_periode.lieu_id IN ('" . implode("','", $_SESSION['filtreGroupeLieu']) . "')";
+	$sql.= " OR planning_projet.createur_id IN ('" . implode("','", $_SESSION['filtreGroupeLieu']) . "')";
 }
 // Si filtre sur ressource
 if(count($_SESSION['filtreGroupeRessource']) > 0) {

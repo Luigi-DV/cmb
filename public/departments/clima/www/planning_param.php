@@ -405,6 +405,15 @@ if (CONFIG_SOPLANNING_OPTION_LIEUX == 1)
 	 $listeLieux->db_load(array(), array('nom' => 'DESC'));
 	}else $listeLieux->db_load(array(), array('nom' => 'ASC'));
 	$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+	$listeLieuxFilter = new GCollection('Lieu');
+	$sql = "SELECT pu.*
+	FROM planning_lieu pu
+	LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+	LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+	WHERE pg.nom IN ('Test Manager', 'Technician')";
+	$listeLieuxFilter->db_loadSQL($sql);
+	$smarty->assign('listeLieuxFilter', $listeLieuxFilter->getSmartyData());
 }
 
 // Filtre pour les ressources

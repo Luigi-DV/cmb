@@ -117,6 +117,7 @@ if(count($_SESSION['filtreGroupeProjet']) > 0) {
 // Si filtre sur groupe lieu
 if(count($_SESSION['filtreGroupeLieu']) > 0) {
 	$sql.= " AND planning_periode.lieu_id IN ('" . implode("','", $_SESSION['filtreGroupeLieu']) . "')";
+	$sql.= " OR planning_projet.createur_id IN ('" . implode("','", $_SESSION['filtreGroupeLieu']) . "')";
 }
 // Si filtre sur ressource
 if(count($_SESSION['filtreGroupeRessource']) > 0) {

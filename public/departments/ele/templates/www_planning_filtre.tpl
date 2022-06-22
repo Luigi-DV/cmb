@@ -154,7 +154,7 @@
 						<form action="process/planning.php" method="POST">
 						<input type="hidden" name="filtreGroupeLieu" value="1" />
 						<select name="filtreGroupeLieu" multiple="multiple" id="filtreGroupeLieu" class="d-none multiselect">
-								{foreach from=$listeLieux item=lieuCourant name=loopLieux}
+								{foreach from=$listeLieuxFilter item=lieuCourant name=loopLieux}
 								<option value="{$lieuCourant.lieu_id}" {if in_array($lieuCourant.lieu_id, $filtreGroupeLieu)}selected="selected"{/if}>{$lieuCourant.nom|xss_protect}</option>
 								{/foreach}
 							</optgroup></select>
