@@ -418,7 +418,7 @@
 			<div class="col-md-3">
 				<select multiple="multiple" name="lieu" id="lieu" class="form-control {if $smarty.session.isMobileOrTablet!=1}select2{/if}" tabindex="22" style="width:100%" onChange="xajax_checkHoliday(getSelectValue('lieu'), $('#date_debut').val(), $('#matin').is(':checked'), $('#apresmidi').is(':checked'),$('#nuit').is(':checked'), $('#dateFinRepetitionJour').val(), '{$periode.periode_id}');">
 					{assign var=groupeTemp value=""}
-					{foreach from=$listeLieuxTech item=lieuTmp}
+					{foreach from=$listeLieux item=lieuTmp}
 						<option value="{$lieuTmp.lieu_id}" {if in_array($lieuTmp.lieu_id, $periode.lieu)} selected="selected" {/if}>{$lieuTmp.nom}</option>
 						{assign var=groupeTemp value=$lieuTmp.lieu_id}
 					{/foreach}

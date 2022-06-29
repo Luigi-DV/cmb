@@ -1170,12 +1170,14 @@ function ajoutPeriode($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 	// liste de tous les lieux
 	if (CONFIG_SOPLANNING_OPTION_LIEUX == 1)
 	{
+	
+		//LIEU ALL
 		$listeLieux = new GCollection('Lieu');
-		//$listeLieux->db_load(array(), array('nom' => 'ASC'));
 		$sql = "SELECT pu.*
 		FROM planning_lieu pu
 		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
-		WHERE pug.user_groupe_id!='8'";
+		LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+		WHERE pg.nom NOT LIKE 'Unsubscribed%' ORDER BY 'nom'";
 		$listeLieux->db_loadSQL($sql);
 		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
@@ -1188,14 +1190,6 @@ function ajoutPeriode($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
         WHERE pg.nom LIKE 'Technician%'";
         $listeLieux_TECH->db_loadSQL($sql_TECH);
         $smarty->assign('listeLieuxTech', $listeLieux_TECH->getSmartyData());
-
-		//LIEU ALL
-        $listeLieux = new GCollection('Lieu');
-        $sql = "SELECT pu.*
-		FROM planning_lieu pu
-		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
-        $listeLieux->db_loadSQL($sql);
-        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
         //LIEU TEST MANAGERS
         $listeLieux_TM = new GCollection('Lieu');
@@ -1391,17 +1385,16 @@ function ajoutHoliday($dateDebut = '', $ligne_id = '', $periode_id = '', $heureD
 	// liste de tous les lieux
 	if (CONFIG_SOPLANNING_OPTION_LIEUX == 1)
 	{
+	
+       	//LIEU ALL
 		$listeLieux = new GCollection('Lieu');
-		$listeLieux->db_load(array(), array('nom' => 'ASC'));
-		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
-
-		//LIEU ALL
-        $listeLieux = new GCollection('Lieu');
-        $sql = "SELECT pu.*
+		$sql = "SELECT pu.*
 		FROM planning_lieu pu
-		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
-        $listeLieux->db_loadSQL($sql);
-        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+		LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+		WHERE pg.nom NOT LIKE 'Unsubscribed%' ORDER BY 'nom'";
+		$listeLieux->db_loadSQL($sql);
+		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
 		//LIEU TECHNICIANS
 		$listeLieux_TECH = new GCollection('Lieu');
@@ -1626,17 +1619,15 @@ function modifPeriode($periode_id) {
 	// liste de tous les lieux
 	if (CONFIG_SOPLANNING_OPTION_LIEUX == 1)
 	{
-		$listeLieux = new GCollection('Lieu');
-		$listeLieux->db_load(array(), array('nom' => 'ASC'));
-		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
-
 		//LIEU ALL
         $listeLieux = new GCollection('Lieu');
-        $sql = "SELECT pu.*
+		$sql = "SELECT pu.*
 		FROM planning_lieu pu
-		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
-        $listeLieux->db_loadSQL($sql);
-        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+		LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+		WHERE pg.nom NOT LIKE 'Unsubscribed%' ORDER BY 'nom'";
+		$listeLieux->db_loadSQL($sql);
+		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
 		//LIEU TECHNICIANS
 		$listeLieux_TECH = new GCollection('Lieu');
@@ -1856,17 +1847,16 @@ function modifHoliday($periode_id) {
 	// liste de tous les lieux
 	if (CONFIG_SOPLANNING_OPTION_LIEUX == 1)
 	{
-		$listeLieux = new GCollection('Lieu');
-		$listeLieux->db_load(array(), array('nom' => 'ASC'));
-		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
 		//LIEU ALL
-        $listeLieux = new GCollection('Lieu');
-        $sql = "SELECT pu.*
+		$listeLieux = new GCollection('Lieu');
+		$sql = "SELECT pu.*
 		FROM planning_lieu pu
-		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id";
-        $listeLieux->db_loadSQL($sql);
-        $smarty->assign('listeLieux', $listeLieux->getSmartyData());
+		LEFT JOIN planning_user pug ON pu.lieu_id = pug.user_id
+		LEFT JOIN planning_user_groupe pg ON pug.user_groupe_id = pg.user_groupe_id
+		WHERE pg.nom NOT LIKE 'Unsubscribed%' ORDER BY 'nom'";
+		$listeLieux->db_loadSQL($sql);
+		$smarty->assign('listeLieux', $listeLieux->getSmartyData());
 
 		//LIEU TECHNICIANS
 		$listeLieux_TECH = new GCollection('Lieu');

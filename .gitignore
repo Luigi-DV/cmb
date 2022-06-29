@@ -13,6 +13,5 @@ yarn-error.log
 /.idea
 /.vscode
 database.inc
-public/departments/*/smarty/templates_c/*tpl.php
-public/departments/*/smarty/templates_c/*txt.php
-public/departments/*/debug.txt
+/public/departments/*/smarty/templates_c/*
+/public/departments/*/debug.txt
